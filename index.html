@@ -27,6 +27,7 @@
         }
         #no {
             position: absolute;
+            cursor: pointer;
         }
         .heart {
             position: absolute;
@@ -81,17 +82,16 @@
             const buttonWidth = button.offsetWidth;
             const buttonHeight = button.offsetHeight;
 
-            if (noClicks < 4) {
-                const maxWidth = window.innerWidth - buttonWidth - 20; // 20px margin
-                const maxHeight = window.innerHeight - buttonHeight - 20; // 20px margin
+            const maxWidth = window.innerWidth - buttonWidth - 20; // 20px margin
+            const maxHeight = window.innerHeight - buttonHeight - 20; // 20px margin
 
-                const randomX = Math.random() * maxWidth; // Random x position
-                const randomY = Math.random() * maxHeight; // Random y position
+            const randomX = Math.random() * maxWidth; // Random x position
+            const randomY = Math.random() * maxHeight; // Random y position
 
-                // Spread out the position by adding more margin
-                button.style.left = randomX + "px";
-                button.style.top = randomY + "px";
-            } else {
+            button.style.left = randomX + "px";
+            button.style.top = randomY + "px";
+
+            if (noClicks >= 4) {
                 // Show the second Yes button after 4 No clicks
                 document.getElementById("yes2").style.display = "inline-block";
                 button.innerText = "Yes";
@@ -129,6 +129,7 @@
 
 </body>
 </html>
+
 
 
 
