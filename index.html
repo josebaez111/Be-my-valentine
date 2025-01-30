@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffcccc;
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        #no {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="popup">
+        <h2>Will you be my Valentine? 💖</h2>
+        <div class="buttons">
+            <button onclick="yesClicked()">Yes</button>
+            <button id="no" onclick="noClicked()">No</button>
+        </div>
+    </div>
+
+    <script>
+        let noClicks = 0;
+
+        function yesClicked() {
+            // Replace with the Spotify link to the song
+            const spotifyLink = "https://open.spotify.com/track/5EVQSWPcTZxOf8OlKKYrqM?si=ef1561157d864008"; // Replace YOUR_TRACK_ID with the actual track ID
+            window.open(spotifyLink, '_blank'); // Open the Spotify link in a new tab
+            alert("Yay! 🥰 TE AMO Y NO PUEDO ESPERAR A VER NUESTRO FUTURO JUNTOS <3 !");
+        }
+
+        function noClicked() {
+            noClicks++;
+            if (noClicks < 3) {
+                let button = document.getElementById("no");
+                button.style.top = Math.random() * (window.innerHeight - 50) + "px"; // Adjust position within window
+                button.style.left = Math.random() * (window.innerWidth - 100) + "px"; // Adjust position within window
+            } else {
+                document.getElementById("no").innerText = "Yes";
+                document.getElementById("no").setAttribute("onclick", "yesClicked()");
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+
