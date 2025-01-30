@@ -10,6 +10,8 @@
             text-align: center;
             background-color: #ffcccc;
             overflow: hidden; /* Prevent scrollbars from appearing */
+            margin: 0;
+            padding: 0;
         }
         .popup {
             position: fixed;
@@ -70,8 +72,8 @@
         </div>
     </div>
 
-    <audio id="bg-music" autoplay loop>
-        <source src="https://drive.google.com/uc?export=stream&id=1W0-MAl2w46EWJPbgvXG4fgxtg3_xbxfN" type="audio/mpeg">
+    <audio id="bg-music" loop preload="auto">
+        <source src="love-song.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -81,8 +83,14 @@
         function yesClicked() {
             const spotifyLink = "https://open.spotify.com/track/5EVQSWPcTZxOf8OlKKYrqM?si=32dcdd358f7e4832"; // Spotify link
             window.open(spotifyLink, '_blank'); // Open the Spotify link in a new tab
-            alert("Yay! 🥰 Can't wait for our special day!");
+            alert("Yay! 🥰 TE AMO MI AMOR, CANT WAIT TO SPEND THE REST OF MY LIFE WITH YOU <3 <3 <3 ");
             startHeartRain(); // Start the heart rain effect
+
+            // Play the audio
+            const audio = document.getElementById("bg-music");
+            audio.play().catch(() => {
+                alert("Click anywhere on the page to allow the music to play!");
+            });
         }
 
         function noClicked() {
@@ -108,7 +116,7 @@
         }
 
         function startHeartRain() {
-            const heartCount = 30; // Number of hearts to fall
+            const heartCount = 50; // Increase number of hearts
             for (let i = 0; i < heartCount; i++) {
                 createHeart();
             }
@@ -121,6 +129,11 @@
             // Set random position
             const randomX = Math.random() * window.innerWidth;
             heart.style.left = randomX + "px";
+
+            // Set random size
+            const randomSize = Math.random() * 30 + 20; // Between 20px and 50px
+            heart.style.width = randomSize + "px";
+            heart.style.height = randomSize + "px";
 
             // Set random fall duration
             const fallDuration = Math.random() * 2 + 3; // Between 3 and 5 seconds
