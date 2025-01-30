@@ -56,11 +56,12 @@
         <div class="buttons">
             <button onclick="yesClicked()">Yes</button>
             <button id="no" onclick="noClicked()">No</button>
+            <button id="yes2" style="display: none;" onclick="yesClicked()">Yes</button> <!-- Second Yes button -->
         </div>
     </div>
 
     <audio id="bg-music" autoplay loop>
-        <source src="https://drive.google.com/uc?export=play&id=1W0-MAl2w46EWJPbgvXG4fgxtg3_xbxfN" type="audio/mpeg">
+        <source src="https://drive.google.com/uc?export=stream&id=1W0-MAl2w46EWJPbgvXG4fgxtg3_xbxfN" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -80,16 +81,19 @@
             const buttonWidth = button.offsetWidth;
             const buttonHeight = button.offsetHeight;
 
-            if (noClicks < 3) {
+            if (noClicks < 4) {
                 const maxWidth = window.innerWidth - buttonWidth - 20; // 20px margin
                 const maxHeight = window.innerHeight - buttonHeight - 20; // 20px margin
 
                 const randomX = Math.random() * maxWidth; // Random x position
                 const randomY = Math.random() * maxHeight; // Random y position
 
+                // Spread out the position by adding more margin
                 button.style.left = randomX + "px";
                 button.style.top = randomY + "px";
             } else {
+                // Show the second Yes button after 4 No clicks
+                document.getElementById("yes2").style.display = "inline-block";
                 button.innerText = "Yes";
                 button.setAttribute("onclick", "yesClicked()");
             }
@@ -125,7 +129,6 @@
 
 </body>
 </html>
-
 
 
 
