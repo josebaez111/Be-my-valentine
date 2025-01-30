@@ -39,7 +39,7 @@
     </div>
 
     <audio id="bg-music" autoplay loop>
-        <source src="https://drive.google.com/uc?export=download&id=1W0-MAl2w46EWJPbgvXG4fgxtg3_xbxfN" type="audio/mpeg">
+        <source src="https://drive.google.com/uc?export=play&id=1W0-MAl2w46EWJPbgvXG4fgxtg3_xbxfN" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -47,26 +47,33 @@
         let noClicks = 0;
 
         function yesClicked() {
-            const spotifyLink = "https://open.spotify.com/track/5EVQSWPcTZxOf8OlKKYrqM?si=32dcdd358f7e4832"; // Replace with the actual Spotify link
+            const spotifyLink = "https://open.spotify.com/track/5EVQSWPcTZxOf8OlKKYrqM?si=32dcdd358f7e4832"; // Spotify link
             window.open(spotifyLink, '_blank'); // Open the Spotify link in a new tab
             alert("Yay! 🥰 Can't wait for our special day!");
         }
 
         function noClicked() {
             noClicks++;
+            let button = document.getElementById("no");
             if (noClicks < 3) {
-                let button = document.getElementById("no");
-                button.style.top = Math.random() * (window.innerHeight - 50) + "px"; // Adjust position within window
-                button.style.left = Math.random() * (window.innerWidth - 100) + "px"; // Adjust position within window
+                // Calculate new position ensuring the button stays on screen
+                const buttonWidth = button.offsetWidth;
+                const buttonHeight = button.offsetHeight;
+                const maxWidth = window.innerWidth - buttonWidth - 20; // Add some margin
+                const maxHeight = window.innerHeight - buttonHeight - 20; // Add some margin
+
+                button.style.top = Math.random() * maxHeight + "px";
+                button.style.left = Math.random() * maxWidth + "px";
             } else {
-                document.getElementById("no").innerText = "Yes";
-                document.getElementById("no").setAttribute("onclick", "yesClicked()");
+                button.innerText = "Yes";
+                button.setAttribute("onclick", "yesClicked()");
             }
         }
     </script>
 
 </body>
 </html>
+
 
 
 
