@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #ffcccc;
-            overflow: hidden; 
+            overflow: hidden; /* Prevent scrollbars from appearing */
         }
         .popup {
             position: fixed;
@@ -20,7 +20,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px gray;
-            z-index: 1; 
+            z-index: 1; /* Ensure popup is above hearts */
         }
         .buttons {
             margin-top: 20px;
@@ -28,13 +28,22 @@
         #no {
             position: absolute;
             cursor: pointer;
+            padding: 10px 20px;
+            background-color: #ff6666;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+        }
+        #yes2 {
+            display: none; /* Hide second Yes button initially */
         }
         .heart {
             position: absolute;
             width: 30px;
             height: 30px;
             background-color: red;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%, 100% 40%, 50% 40%, 0% 40%);
             opacity: 0.8;
             animation: fall linear forwards;
         }
@@ -57,7 +66,7 @@
         <div class="buttons">
             <button onclick="yesClicked()">Yes</button>
             <button id="no" onclick="noClicked()">No</button>
-            <button id="yes2" style="display: none;" onclick="yesClicked()">Yes</button> 
+            <button id="yes2" onclick="yesClicked()">Yes</button> <!-- Second Yes button -->
         </div>
     </div>
 
@@ -70,10 +79,10 @@
         let noClicks = 0;
 
         function yesClicked() {
-            const spotifyLink = "https://open.spotify.com/track/5EVQSWPcTZxOf8OlKKYrqM?si=32dcdd358f7e4832"; 
-            window.open(spotifyLink, '_blank'); 
-            alert("Yay! 🥰 TE AMO MI AMOR CANT WAIT TO SPEDN MY LIFE WITH YOU <3 <3 !");
-            startHeartRain(); 
+            const spotifyLink = "https://open.spotify.com/track/5EVQSWPcTZxOf8OlKKYrqM?si=32dcdd358f7e4832"; // Spotify link
+            window.open(spotifyLink, '_blank'); // Open the Spotify link in a new tab
+            alert("Yay! 🥰 Can't wait for our special day!");
+            startHeartRain(); // Start the heart rain effect
         }
 
         function noClicked() {
@@ -82,25 +91,24 @@
             const buttonWidth = button.offsetWidth;
             const buttonHeight = button.offsetHeight;
 
-            const maxWidth = window.innerWidth - buttonWidth - 20; 
-            const maxHeight = window.innerHeight - buttonHeight - 20; 
+            const maxWidth = window.innerWidth - buttonWidth - 20; // 20px margin
+            const maxHeight = window.innerHeight - buttonHeight - 20; // 20px margin
 
-            const randomX = Math.random() * maxWidth; 
-            const randomY = Math.random() * maxHeight; 
+            const randomX = Math.random() * maxWidth; // Random x position
+            const randomY = Math.random() * maxHeight; // Random y position
 
             button.style.left = randomX + "px";
             button.style.top = randomY + "px";
 
             if (noClicks >= 4) {
-               
-                document.getElementById("yes2").style.display = "inline-block";
                 button.innerText = "Yes";
                 button.setAttribute("onclick", "yesClicked()");
+                document.getElementById("yes2").style.display = "inline-block"; // Show second Yes button
             }
         }
 
         function startHeartRain() {
-            const heartCount = 30;
+            const heartCount = 30; // Number of hearts to fall
             for (let i = 0; i < heartCount; i++) {
                 createHeart();
             }
@@ -110,17 +118,17 @@
             const heart = document.createElement("div");
             heart.classList.add("heart");
 
-            
+            // Set random position
             const randomX = Math.random() * window.innerWidth;
             heart.style.left = randomX + "px";
 
-           
-            const fallDuration = Math.random() * 2 + 3; 
+            // Set random fall duration
+            const fallDuration = Math.random() * 2 + 3; // Between 3 and 5 seconds
             heart.style.animationDuration = fallDuration + "s";
 
             document.body.appendChild(heart);
 
-            
+            // Remove heart after animation ends
             heart.addEventListener('animationend', () => {
                 heart.remove();
             });
