@@ -1,156 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be My Valentine?</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #ffcccc;
-            overflow: hidden; /* Prevent scrollbars from appearing */
-            margin: 0;
-            padding: 0;
-        }
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px gray;
-            z-index: 1; /* Ensure popup is above hearts */
-        }
-        .buttons {
-            margin-top: 20px;
-        }
-        #no {
-            position: absolute;
-            cursor: pointer;
-            padding: 10px 20px;
-            background-color: #ff6666;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            font-size: 16px;
-        }
-        #yes2 {
-            display: none; /* Hide second Yes button initially */
-        }
-        .heart {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: red;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%, 100% 40%, 50% 40%, 0% 40%);
-            opacity: 0.8;
-            animation: fall linear forwards;
-        }
-        @keyframes fall {
-            0% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine?</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+text-align: center;
+background-color: #ffcccc;
+overflow: hidden;
+margin: 0;
+padding: 0;
+}
+
+.popup {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background: white;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0px 0px 10px gray;
+z-index: 1;
+}
+
+.buttons {
+margin-top: 20px;
+}
+
+button {
+padding: 10px 20px;
+background-color: #ff6666;
+border: none;
+border-radius: 5px;
+color: white;
+font-size: 16px;
+cursor: pointer;
+margin: 5px;
+}
+
+#no {
+position: absolute;
+}
+
+#yes2 {
+display: none;
+}
+
+/* Improved Heart Shape */
+.heart {
+position: absolute;
+width: 30px;
+height: 30px;
+background-color: red;
+clip-path: path('M14.5,3 C9,-4 0,1 0,8 C0,16 14.5,25 14.5,25 C14.5,25 29,16 29,8 C29,1 20,-4 14.5,3 Z');
+opacity: 0.8;
+animation: fall linear forwards;
+}
+
+@keyframes fall {
+0% {
+transform: translateY(0);
+opacity: 1;
+}
+100% {
+transform: translateY(100vh);
+opacity: 0;
+}
+}
+
+img {
+width: 100%;
+max-width: 200px;
+border-radius: 10px;
+margin-top: 10px;
+}
+
+#play-music-btn {
+margin-top: 10px;
+}
+</style>
 </head>
 <body>
 
-    <div class="popup">
-        <h2>Will you be my Valentine? 💖</h2>
-        <div class="buttons">
-            <button onclick="yesClicked()">Yes</button>
-            <button id="no" onclick="noClicked()">No</button>
-            <button id="yes2" onclick="yesClicked()">Yes</button> <!-- Second Yes button -->
-        </div>
-    </div>
+<div class="popup">
+<h2>Will you be my Valentine? 💖</h2>
+<p>Mi amor, you mean the world to me. I can't wait to spend forever with you. Te amo con todo mi corazón. ❤️</p>
+<img src="IMG_6596.jpg" alt="Our Photo">
+<div class="buttons">
+<button onclick="yesClicked()">Yes</button>
+<button id="no" onclick="noClicked()">No</button>
+<button id="yes2" onclick="yesClicked()">Yes</button>
+</div>
+<button id="play-music-btn" onclick="playMusic()">Click to play our song 💖</button>
+</div>
 
-    <audio id="bg-music" loop preload="auto">
-        <source src="Dannylux - Viaje De Amor [Official Audio Visualizer].mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+<audio id="bg-music" loop preload="auto">
+<source src="Dannylux - Viaje De Amor [Official Audio Visualizer].mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
 
-    <script>
-        let noClicks = 0;
+<script>
+let noClicks = 0;
 
-        function yesClicked() {
-            const spotifyLink = "https://open.spotify.com/track/5EVQSWPcTZxOf8OlKKYrqM?si=32dcdd358f7e4832"; // Spotify link
-            window.open(spotifyLink, '_blank'); // Open the Spotify link in a new tab
-            alert("Yay! 🥰 TE AMO MI AMOR, CANT WAIT TO SPEND THE REST OF MY LIFE WITH YOU <3 <3 <3 ");
-            startHeartRain(); // Start the heart rain effect
+function yesClicked() {
+const spotifyLink = "https://open.spotify.com/track/5EVQSWPcTZxOf8OlKKYrqM?si=32dcdd358f7e4832";
 
-            // Play the audio
-            const audio = document.getElementById("bg-music");
-            audio.play().catch(() => {
-                alert("Click anywhere on the page to allow the music to play!");
-            });
-        }
+// Open correctly on mobile and desktop
+if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+window.location.href = spotifyLink; // Open in the same tab on mobile
+} else {
+window.open(spotifyLink, '_blank'); // Open in a new tab on desktop
+}
 
-        function noClicked() {
-            noClicks++;
-            let button = document.getElementById("no");
-            const buttonWidth = button.offsetWidth;
-            const buttonHeight = button.offsetHeight;
+alert("Yay! 🥰 TE AMO MI AMOR, CAN'T WAIT TO SPEND THE REST OF MY LIFE WITH YOU ❤️❤️❤️");
+startHeartRain();
 
-            const maxWidth = window.innerWidth - buttonWidth - 20; // 20px margin
-            const maxHeight = window.innerHeight - buttonHeight - 20; // 20px margin
+// Play the audio
+const audio = document.getElementById("bg-music");
+audio.play().catch(() => {
+alert("Click anywhere on the page to allow the music to play!");
+});
+}
 
-            const randomX = Math.random() * maxWidth; // Random x position
-            const randomY = Math.random() * maxHeight; // Random y position
+function noClicked() {
+noClicks++;
+let button = document.getElementById("no");
+const buttonWidth = button.offsetWidth;
+const buttonHeight = button.offsetHeight;
 
-            button.style.left = randomX + "px";
-            button.style.top = randomY + "px";
+const maxWidth = window.innerWidth - buttonWidth - 20;
+const maxHeight = window.innerHeight - buttonHeight - 20;
 
-            if (noClicks >= 4) {
-                button.innerText = "Yes";
-                button.setAttribute("onclick", "yesClicked()");
-                document.getElementById("yes2").style.display = "inline-block"; // Show second Yes button
-            }
-        }
+const randomX = Math.random() * maxWidth;
+const randomY = Math.random() * maxHeight;
 
-        function startHeartRain() {
-            const heartCount = 50; // Increase number of hearts
-            for (let i = 0; i < heartCount; i++) {
-                createHeart();
-            }
-        }
+button.style.left = randomX + "px";
+button.style.top = randomY + "px";
 
-        function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
+if (noClicks >= 4) {
+button.innerText = "Yes";
+button.setAttribute("onclick", "yesClicked()");
+button.style.position = "static";
+document.getElementById("yes2").style.display = "inline-block";
+}
+}
 
-            // Set random position
-            const randomX = Math.random() * window.innerWidth;
-            heart.style.left = randomX + "px";
+function startHeartRain() {
+const heartCount = 50;
+for (let i = 0; i < heartCount; i++) {
+createHeart();
+}
+}
 
-            // Set random size
-            const randomSize = Math.random() * 30 + 20; // Between 20px and 50px
-            heart.style.width = randomSize + "px";
-            heart.style.height = randomSize + "px";
+function createHeart() {
+const heart = document.createElement("div");
+heart.classList.add("heart");
 
-            // Set random fall duration
-            const fallDuration = Math.random() * 2 + 3; // Between 3 and 5 seconds
-            heart.style.animationDuration = fallDuration + "s";
+const randomX = Math.random() * window.innerWidth;
+heart.style.left = randomX + "px";
 
-            document.body.appendChild(heart);
+const randomSize = Math.random() * 30 + 20;
+heart.style.width = randomSize + "px";
+heart.style.height = randomSize + "px";
 
-            // Remove heart after animation ends
-            heart.addEventListener('animationend', () => {
-                heart.remove();
-            });
-        }
-    </script>
+const fallDuration = Math.random() * 2 + 3;
+heart.style.animationDuration = fallDuration + "s";
+
+document.body.appendChild(heart);
+
+heart.addEventListener('animationend', () => {
+heart.remove();
+});
+}
+
+function playMusic() {
+const audio = document.getElementById("bg-music");
+audio.play().catch(() => {
+alert("Click anywhere on the page to allow the music to play!");
+});
+}
+</script>
 
 </body>
 </html>
-
-
 
 
