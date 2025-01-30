@@ -9,6 +9,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #ffcccc;
+            overflow: hidden; /* Prevent scrollbars from appearing */
         }
         .popup {
             position: fixed;
@@ -19,12 +20,32 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px gray;
+            z-index: 1; /* Ensure popup is above hearts */
         }
         .buttons {
             margin-top: 20px;
         }
         #no {
             position: absolute;
+        }
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            opacity: 0.8;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -50,24 +71,55 @@
             const spotifyLink = "https://open.spotify.com/track/5EVQSWPcTZxOf8OlKKYrqM?si=32dcdd358f7e4832"; // Spotify link
             window.open(spotifyLink, '_blank'); // Open the Spotify link in a new tab
             alert("Yay! 🥰 Can't wait for our special day!");
+            startHeartRain(); // Start the heart rain effect
         }
 
         function noClicked() {
             noClicks++;
             let button = document.getElementById("no");
-            if (noClicks < 3) {
-                // Calculate new position ensuring the button stays on screen
-                const buttonWidth = button.offsetWidth;
-                const buttonHeight = button.offsetHeight;
-                const maxWidth = window.innerWidth - buttonWidth - 20; // Add some margin
-                const maxHeight = window.innerHeight - buttonHeight - 20; // Add some margin
+            const buttonWidth = button.offsetWidth;
+            const buttonHeight = button.offsetHeight;
 
-                button.style.top = Math.random() * maxHeight + "px";
-                button.style.left = Math.random() * maxWidth + "px";
+            if (noClicks < 3) {
+                const maxWidth = window.innerWidth - buttonWidth - 20; // 20px margin
+                const maxHeight = window.innerHeight - buttonHeight - 20; // 20px margin
+
+                const randomX = Math.random() * maxWidth; // Random x position
+                const randomY = Math.random() * maxHeight; // Random y position
+
+                button.style.left = randomX + "px";
+                button.style.top = randomY + "px";
             } else {
                 button.innerText = "Yes";
                 button.setAttribute("onclick", "yesClicked()");
             }
+        }
+
+        function startHeartRain() {
+            const heartCount = 30; // Number of hearts to fall
+            for (let i = 0; i < heartCount; i++) {
+                createHeart();
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+
+            // Set random position
+            const randomX = Math.random() * window.innerWidth;
+            heart.style.left = randomX + "px";
+
+            // Set random fall duration
+            const fallDuration = Math.random() * 2 + 3; // Between 3 and 5 seconds
+            heart.style.animationDuration = fallDuration + "s";
+
+            document.body.appendChild(heart);
+
+            // Remove heart after animation ends
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
         }
     </script>
 
